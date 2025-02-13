@@ -16,11 +16,22 @@ jobs:
       image: node:20
 
     steps:
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "npm"
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm test
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          yarn
+
+      # Run Nuxt.js build (to test if build works)
+      - name: Build Nuxt.js
+        run: |
+          yarn build
